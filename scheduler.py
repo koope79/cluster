@@ -33,7 +33,7 @@ def create_parser():
 def run_client():
     try:
         logging.info("Run client...")
-        os.system('ssh 192.168.88.233 & python3 /home/rock64/nikolayDC/cluster/client1.py')
+        os.system('ssh 192.168.88.233 && cd /home/rock64/pocketsphinx-5prealpha/src/programs && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && sudo python3 /home/rock64/nikolayDC/cluster/client1.py')
     except:
         logging.error("error while create workers")
 
