@@ -45,7 +45,7 @@ def run_other_clients(hosts: str, config: str):
         path_to_client_file = config_file.readline().replace("\n", "")
         for line in host_file:
             os.system(
-                'ssh {} "python3 {}" &'.format(line.replace('\n', ''), path_to_client_file))
+                'ssh {} && cd /home/rock64/pocketsphinx-5prealpha/src/programs && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && "python3 {}" &'.format(line.replace('\n', ''), path_to_client_file))
     except:
         logging.error("error while run others clients")
 
