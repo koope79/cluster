@@ -33,7 +33,7 @@ def create_parser():
 def run_client():
     try:
         logging.info("Run client...")
-        os.system('ssh 192.168.88.233 && cd /home/rock64/pocketsphinx-5prealpha/src/programs && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && sudo python3 /home/rock64/nikolayDC/cluster/client1.py')
+        os.system('ssh 192.168.88.233 "cd /home/rock64/pocketsphinx-5prealpha/ && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && sudo python3 /home/rock64/nikolayDC/cluster/client1.py"')
     except:
         logging.error("error while create workers")
 
@@ -45,7 +45,7 @@ def run_other_clients(hosts: str, config: str):
         path_to_client_file = config_file.readline().replace("\n", "")
         for line in host_file:
             os.system(
-                'ssh {} "cd /home/rock64/pocketsphinx-5prealpha/src/programs && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && sudo python3 {}" &'.format(line.replace('\n', ''), path_to_client_file))
+                'ssh {} "cd /home/rock64/pocketsphinx-5prealpha/ && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && sudo python3 {}" &'.format(line.replace('\n', ''), path_to_client_file))
     except:
         logging.error("error while run others clients")
 
