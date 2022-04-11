@@ -13,11 +13,11 @@ logging.basicConfig(handlers=(file_log, console_out),
 
 # main_port
 _port = 9093
-_addr = '127.0.0.1'
+_addr = '192.168.88.252'
 
 
 def recognition(file_name):
-    cmd = 'cd /home/rock64/pocketsphinx-5prealpha/src/programs && sudo pocketsphinx_continuous -samprate 16000 -hmm /home/rock64/pocketsphinx-5prealpha/model/ru-model/zero_ru.cd_semi_4000 -jsgf /home/rock64/nikolayDC/cluster/gram/my_rus_pi.gram -dict /home/rock64/nikolayDC/cluster/gram/my_rus_pi_dict -infile /home/rock64/nikolayDC/cluster/{} -logfn /dev/null'.format(file_name)
+    cmd = 'cd /home/rock64/pocketsphinx-5prealpha/ && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && cd /home/rock64/pocketsphinx-5prealpha/src/programs && pocketsphinx_continuous -samprate 16000 -hmm /home/rock64/pocketsphinx-5prealpha/model/ru-model/zero_ru.cd_semi_4000 -jsgf /home/rock64/nikolayDC/cluster/gram/my_rus_pi.gram -dict /home/rock64/nikolayDC/cluster/gram/my_rus_pi_dict -infile /home/rock64/nikolayDC/cluster/{} -logfn /dev/null'.format(file_name)
     output = run(cmd, stdout=PIPE, stderr=STDOUT, text=True, shell=True)
     out_str = output.stdout.rstrip()
 
