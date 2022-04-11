@@ -44,8 +44,9 @@ def run_other_clients(hosts: str, config: str):
         config_file = open(config)
         path_to_client_file = config_file.readline().replace("\n", "")
         for line in host_file:
+            print('ssh {} "sudo python3 {}"'.format(line.replace('\n', ''), path_to_client_file))
             os.system(
-                'ssh {} "sudo python3 {}" &'.format(line.replace('\n', ''), path_to_client_file))
+                'ssh {} "sudo python3 {}"'.format(line.replace('\n', ''), path_to_client_file))
     except:
         logging.error("error while run others clients")
 

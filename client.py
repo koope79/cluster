@@ -28,21 +28,21 @@ def listen_tempo():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((_addr, 9091))
     sock.send('client_work'.encode())
-    file_name = "CLIENT_3_AUDIO.wav"
+    file_name = "CLIENT_AUDIO.wav"
     file = open(file_name, "wb")
     while True:
         data = sock.recv(4096)
         file.write(data)
         if not data:
             file.close()
-            logging.info("CLIENT 3 GOT FILE")
+            logging.info("CLIENT GOT FILE")
             recognition(file_name)
             break
             
     sock.close()
 
 def my_start():
-    logging.info("START Client_3!")
+    logging.info("START Client!")
     listen_tempo()
 
 def send_result(result):
@@ -50,6 +50,6 @@ def send_result(result):
     sock.connect((_addr, _port))
     sock.send(result.encode())
     sock.close()
-    logging.info("SENDED_3 RESULT")
+    logging.info("SENDED_RESULT")
 
 my_start()
