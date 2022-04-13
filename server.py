@@ -28,7 +28,6 @@ count = None
 
 def start_server(_ports):
     global count
-    # записываем порты
     ports = _ports
     count = len(ports)
     time.sleep(1)
@@ -37,7 +36,6 @@ def start_server(_ports):
 def threaded(conn, addr, file_name):
     global count
     file = open(file_name, "rb")
-    #print("new_thread: {}".format(addr))
     while True:
         try:
             res = conn.recv(4096)

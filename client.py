@@ -23,6 +23,8 @@ def recognition(file_name):
 
     if len(out_str) != 0:
         send_result(out_str)
+    if len(out_str) == 0:
+        send_result("no_reco")
 
 def listen_tempo():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

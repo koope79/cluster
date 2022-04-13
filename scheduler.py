@@ -17,7 +17,6 @@ logging.basicConfig(handlers=(file_log, console_out),
                     datefmt='%m.%d.%Y %H:%M:%S',
                     level=logging.INFO)
 
-# TODO сделать массив
 manager = multiprocessing.Manager()
 ports = []
 
@@ -35,7 +34,7 @@ def run_client():
         logging.info("Run client...")
         os.system('ssh 192.168.88.233 "sudo python3 /home/rock64/nikolayDC/cluster/client1.py"')
     except:
-        logging.error("error while create workers")
+        logging.error("error while run client")
 
 
 def run_other_clients(hosts: str, config: str):
@@ -44,7 +43,6 @@ def run_other_clients(hosts: str, config: str):
         config_file = open(config)
         path_to_client_file = config_file.readline().replace("\n", "")
         for line in host_file:
-            print('ssh {} "sudo python3 {}"'.format(line.replace('\n', ''), path_to_client_file))
             os.system(
                 'ssh {} "sudo python3 {}"'.format(line.replace('\n', ''), path_to_client_file))
     except:
