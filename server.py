@@ -93,15 +93,17 @@ def listen_process(ip, port):
     while True:
         conn, addr = sock.accept()
         logging.info("Connected: " + str(addr))
-        file_name = "SERVER_AUDIO_{}.wav".format(i)
+        file_name = "/home/rock64/nikolayDC/cluser/SERVER_AUDIO_{}.wav".format(i)
         file = open(file_name, "wb")
         i += 1
         while True:
+            global result
             data = conn.recv(4096)
             try:
                 if data.decode():
                     logging.info("SERVER Command " + data.decode() + " from " + str(addr))
                     result.append(data.decode())
+                    logging.info("RESULTS_DATA: {}".format(result))
                     break
                     
             except Exception:
@@ -114,11 +116,11 @@ def listen_process(ip, port):
                     logging.info("AUDIO FILE ON SERVER")
                     file.close()
                     names_mas.append(file_name)
-                    time.sleep(2)
                     start_clients()
+                    time.sleep(2)
                     break
                 
-        print('RESULTSDATA: ', result)
+        #print('RESULTSDATA: ', result)
         conn.close()
 
 # запускаем на каждом порту в пуле прослушивание. Каждый порт слушает в отдельном процессе

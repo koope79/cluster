@@ -17,9 +17,9 @@ _port = 9092
 _addr = '192.168.88.252'
 
 def recognition():
-    for i in range(1,11):
+    for i in range(1,5):
         name_file = '/home/rock64/nikolayDC/cluster/recs/rec{}.wav'.format(i)
-        cmd = 'cd /home/rock64/pocketsphinx-5prealpha/ && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && cd /home/rock64/pocketsphinx-5prealpha/src/programs && pocketsphinx_continuous -samprate 16000 -hmm /home/rock64/pocketsphinx-5prealpha/model/ru-model/zero_ru.cd_cont_4000 -jsgf /home/rock64/nikolayDC/cluster/gram/cl1/cl1_gram.gram -dict /home/rock64/nikolayDC/cluster/gram/cl1/raw_cl1_dict -infile {} -logfn /dev/null'.format(name_file)
+        cmd = 'cd /home/rock64/pocketsphinx-5prealpha/ && export LD_LIBRARY_PATH=/usr/local/lib && export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && cd src/programs && pocketsphinx_continuous -samprate 16000 -hmm /home/rock64/pocketsphinx-5prealpha/model/ru-model/zero_ru.cd_cont_4000 -jsgf /home/rock64/nikolayDC/cluster/gram/cl1/cl1_gram.gram -dict /home/rock64/nikolayDC/cluster/gram/cl1/raw_cl1_dict -infile {} -logfn /dev/null'.format(name_file)
         output = run(cmd, stdout=PIPE, stderr=STDOUT, text=True, shell=True)
         out_str = output.stdout.rstrip()
 

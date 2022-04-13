@@ -7,7 +7,7 @@ file_log = logging.FileHandler("client.log")
 console_out = logging.StreamHandler()
 
 logging.basicConfig(handlers=(file_log, console_out),
-                    format='[%(asctime)s | %(levelname)s | CLIENT_3]: %(message)s',
+                    format='[%(asctime)s | %(levelname)s | CLIENT_2]: %(message)s',
                     datefmt='%m.%d.%Y %H:%M:%S',
                     level=logging.INFO)
 
@@ -29,7 +29,7 @@ def listen_tempo():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((_addr, 9091))
     sock.send('client_work'.encode())
-    file_name = "CLIENT_AUDIO.wav"
+    file_name = "/home/rock64/nikolayDC/cluster/CLIENT_AUDIO.wav"
     file = open(file_name, "wb")
     while True:
         data = sock.recv(4096)
@@ -37,6 +37,10 @@ def listen_tempo():
         if not data:
             file.close()
             logging.info("CLIENT GOT FILE")
+            cmd = 'cd /home/rock64/nikolayDC/cluster/ && du -sh {}'.format(file_name)
+            out = run(cmd, stdout=PIPE, stderr=STDOUT, text=True, shell=True)
+            out_str = out.stdout.rstrip()
+            logging.info("FILE_SIZE: {}".format(out_str))
             recognition(file_name)
             break
             
