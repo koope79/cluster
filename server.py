@@ -95,7 +95,7 @@ def listen_process(ip, port):
     while True:
         conn, addr = sock.accept()
         logging.info("Connected: " + str(addr))
-        file_name = "/home/rock64/nikolayDC/cluser/SERVER_AUDIO_{}.wav".format(i)
+        file_name = "/home/rock64/nikolayDC/cluster/SERVER_AUDIO_{}.wav".format(i)
         file = open(file_name, "wb")
         i += 1
         while True:
@@ -119,7 +119,7 @@ def listen_process(ip, port):
                     file.close()
                     names_mas.append(file_name)
                     start_clients()
-                    time.sleep(2)
+                    time.sleep(1)
                     break
                 
         #print('RESULTSDATA: ', result)
