@@ -27,6 +27,7 @@ def recognition(file_name):
 
 def listen_tempo():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.connect((_addr, 9091))
     sock.send('client_work'.encode())
     file_name = "/home/rock64/nikolayDC/cluster/CLIENT_AUDIO.wav"

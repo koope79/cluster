@@ -62,6 +62,7 @@ def threaded(conn, addr, file_name):
 # промежуточный порт, служащий для рассылки файлов
 def tempo_port(ip, temp_port, circle):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((ip, temp_port))
     sock.listen()
     logging.info("Started Tempo_Port {}!".format(temp_port))
@@ -86,6 +87,7 @@ def start_clients():
 # основной обработчик задач от клиентов
 def listen_process(ip, port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((ip, port))
     logging.info("Created server port {}!".format(port))
     sock.listen()
