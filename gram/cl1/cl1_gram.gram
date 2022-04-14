@@ -2,8 +2,9 @@
 
 grammar cmdGrammar;
 
-public <basicCmd> = <cmdHeater>;
+public <basicCmd> = <start> <cmdHeater>;
 <cmdHeater> = <heater> <actionHeater> <parameterHeater>;
 <heater> = (обогреватель);
 <actionHeater> = (сделай);
 <parameterHeater> = (горячее|холоднее);
+<start> = [умный дом | дом];
