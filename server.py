@@ -104,7 +104,8 @@ def listen_process(ip, port):
             try:
                 if data.decode():
                     logging.info("SERVER Command " + data.decode() + " from " + str(addr))
-                    result.append(data.decode())
+                    if data.decode() not in result and len(data.decode()) < 50:
+                        result.append(data.decode())
                     logging.info("RESULTS_DATA: {}".format(result))
                     break
                     
