@@ -38,10 +38,10 @@ def threaded(conn, addr, file_name):
     file = open(file_name, "rb")
     while True:
         try:
-            res = conn.recv(4096)
+            res = conn.recv(65536)
             if res.decode() == 'client_work':
                 while True:
-                    file_data = file.read(4096)
+                    file_data = file.read(65536)
                     conn.send(file_data)
                     if not file_data:
                         file.close()
@@ -74,7 +74,7 @@ def tempo_port(ip, temp_port, circle):
         if count == 0:
             count = circle
         th_lock.release()
-        last_name_audio = names_mas[-1]
+        last_name_audio = names_mas[0]
         _thread.start_new_thread(threaded,(conn, addr, last_name_audio,))
         #logging.info("Connected close: " + str(addr))
 
@@ -97,33 +97,34 @@ def listen_process(ip, port):
         logging.info("Connected: " + str(addr))
         file_name = "/home/rock64/nikolayDC/cluster/SERVER_AUDIO_{}.wav".format(i)
         file = open(file_name, "wb")
-        i += 1
         while True:
             global result
-            data = conn.recv(4096)
+            data = conn.recv(65536)
             try:
                 if data.decode():
                     logging.info("SERVER Command " + data.decode() + " from " + str(addr))
                     if len(data.decode()) < 100:
+                        f = open('result.txt', 'a+')
+                        f.write(data.decode() + '\n')
+                        f.close()
                         result.append(data.decode())
                     logging.info("RESULTS_DATA: {}".format(result))
                     break
                     
             except Exception:
                 file.write(data)
-                if not data:
-                    break
                 
             finally:
                 if not data:
                     logging.info("AUDIO FILE ON SERVER")
                     file.close()
+                    i += 1
                     names_mas.append(file_name)
                     start_clients()
-                    time.sleep(1)
+                    time.sleep(2)
+                    #logging.info("RESULTS_DATA: {}".format(result))
                     break
                 
-        #print('RESULTSDATA: ', result)
         conn.close()
 
 # запускаем на каждом порту в пуле прослушивание. Каждый порт слушает в отдельном процессе

@@ -37,7 +37,7 @@ def send_audio(name_file):
     sock.connect((_addr, _port))
     file = open(name_file, "rb")
     while True:
-        file_data = file.read(4096)
+        file_data = file.read(65536)
         sock.send(file_data)
         if not file_data:
             break
