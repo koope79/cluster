@@ -25,7 +25,7 @@ def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', help='path to file with hosts')
     parser.add_argument("-c", "--config", help='path to config file')
-    parser.add_argument("-p", "--port", help='count of clients in pull', default=2)
+    parser.add_argument("-p", "--port", help='count of clients in pull', default=8)
     return parser
 
 
