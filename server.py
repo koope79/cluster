@@ -26,12 +26,12 @@ names_mas = manager.list()
 count = None
 
 
-def start_server(_ports):
+def start_server(_ports, _users):
     global count
     ports = _ports
-    count = len(ports)
+    count = _users
     time.sleep(1)
-    listen(ports)
+    listen(ports, count)
 
 def threaded(conn, addr, file_name):
     global count
@@ -135,7 +135,7 @@ def listen(ports):
         main_process.start()
         process.append(main_process)
         
-    tempo_process = multiprocessing.Process(target=tempo_port, args=('', 9091, len(ports),))
+    tempo_process = multiprocessing.Process(target=tempo_port, args=('', 9091, count,))
     tempo_process.start()
     process.append(tempo_process)
 

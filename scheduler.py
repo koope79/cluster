@@ -25,7 +25,7 @@ def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', help='path to file with hosts')
     parser.add_argument("-c", "--config", help='path to config file')
-    parser.add_argument("-p", "--port", help='count of clients in pull', default=8)
+    parser.add_argument("-u", "--users", help='count of clients in pull', default=9)
     return parser
 
 
@@ -79,11 +79,11 @@ def port_listen(func, main_port, hosts, config):
         conn.close()
 
 
-def start_scheduler(hosts: str, config: str):
+def start_scheduler(hosts: str, config: str, users: int):
     server_port_listen_process = multiprocessing.Process(target=port_listen,
                                                          args=(server_port_listen, 9090, hosts, config))
     server_port_listen_process.start()
-    server.start_server(ports)
+    server.start_server(ports, users)
     # клиент запускается после сигнала сервера
 
 
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     args = parser.parse_args(sys.argv[1:])
     # инициализируем возможные порты
     start_port = 9092
-    for i in range(0, int(args.port)):
+    for i in range(0, 2):
         ports.append(start_port)
         start_port += 1
-    start_scheduler(args.host, args.config)
+    start_scheduler(args.host, args.config, args.users)
