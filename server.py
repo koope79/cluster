@@ -128,7 +128,7 @@ def listen_process(ip, port):
         conn.close()
 
 # запускаем на каждом порту в пуле прослушивание. Каждый порт слушает в отдельном процессе
-def listen(ports):
+def listen(ports, count):
     process = []
     for i in ports:
         main_process = multiprocessing.Process(target=listen_process, args=('', i))
