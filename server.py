@@ -33,7 +33,7 @@ def start_server(_ports, _users):
     time.sleep(1)
     listen(ports, count)
 
-def threaded(conn, addr, file_name):
+def threaded(conn, addr, file_name, start_time):
     global count
     file = open(file_name, "rb")
     while True:
@@ -52,6 +52,7 @@ def threaded(conn, addr, file_name):
                 count -= 1
                 if count == 0:
                     names_mas.remove(file_name)
+                    logging.info("Time_circle: {}".format(time.time() - start_time))
                 th_lock.release()
                 conn.close() 
                 break
@@ -72,10 +73,11 @@ def tempo_port(ip, temp_port, circle):
         #logging.info("Connected: " + str(addr))
         th_lock.acquire()
         if count == 0:
+            start_time = time.time()
             count = circle
         th_lock.release()
         last_name_audio = names_mas[0]
-        _thread.start_new_thread(threaded,(conn, addr, last_name_audio,))
+        _thread.start_new_thread(threaded,(conn, addr, last_name_audio, start_time,))
         #logging.info("Connected close: " + str(addr))
 
 def start_clients():
@@ -121,7 +123,7 @@ def listen_process(ip, port):
                     i += 1
                     names_mas.append(file_name)
                     start_clients()
-                    time.sleep(2)
+                    #time.sleep(1)
                     #logging.info("RESULTS_DATA: {}".format(result))
                     break
                 
