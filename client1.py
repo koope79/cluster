@@ -50,7 +50,7 @@ def send_audio(name_file):
     logging.info("File Sended")
 
 def log_duration(start_time, out_com):
-    f = open('log_dur.txt', 'a+')
+    f = open('/home/rock64/nikolayDC/cluster/log_dur.txt', 'a+')
     timer = time.time() - start_time
     f.write(str(timer) + " / " + str(out_com) + "\n")
     f.close()

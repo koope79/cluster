@@ -57,7 +57,7 @@ def my_start():
     listen_tempo()
 
 def log_duration(start_time, out_com):
-    f = open('log_dur.txt', 'a+')
+    f = open('/home/rock64/nikolayDC/cluster/log_dur.txt', 'a+')
     timer = time.time() - start_time
     f.write(str(timer) + " / " + str(out_com) + "\n")
     f.close()
