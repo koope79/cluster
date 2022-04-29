@@ -23,7 +23,10 @@ def recognition(file_name, start_time):
     out_str = output.stdout.strip()
 
     if len(out_str) != 0:
-        send_result(out_str, start_time)
+        com = 'sudo soxi -D {}'.format(file_name)
+        output_com = run(com, stdout=PIPE, stderr=STDOUT, text=True, shell=True)
+        out_com = output_com.stdout.rstrip()
+        send_result(out_str, start_time, out_com)
 
 
 def listen_tempo():
@@ -53,12 +56,19 @@ def my_start():
     logging.info("START Client!")
     listen_tempo()
 
-def send_result(result, start_time):
+def log_duration(start_time, out_com):
+    f = open('log_dur.txt', 'a+')
+    timer = time.time() - start_time
+    f.write(str(timer) + " / " + str(out_com) + "\n")
+    f.close()
+    #logging.info("Time_reco: {}".format(time.time() - start_time))
+
+def send_result(result, start_time, out_com):
     sock = socket.socket()
     sock.connect((_addr, _port))
     sock.send(result.encode())
     sock.close()
-    logging.info("Time_reco: {}".format(time.time() - start_time))
+    log_duration(start_time, out_com)
     logging.info("SENDED_RESULT")
 
 my_start()
